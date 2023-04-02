@@ -1,0 +1,21 @@
+<nz-select
+  nzPlaceHolder="Select todo"
+  nzAllowClear
+  nzShowSearch
+  nzServerSearch
+  (nzScrollToBottom)="todoLoadingService.loadNewTodos()"
+  [nzDropdownRender]="renderTemplate"
+  (nzOnSearch)="todoLoadingService.onSearch($event)"
+>
+  <nz-option
+    *ngFor="let todo of todoLoadingService.readyTodos"
+    [nzValue]="todo"
+    [nzLabel]="todo.title"
+  ></nz-option>
+</nz-select>
+<ng-template #renderTemplate>
+  <nz-spin *ngIf="todoLoadingService.isLoading$ | async"></nz-spin>
+</ng-template>
+
+
+
